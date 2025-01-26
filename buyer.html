@@ -1,0 +1,207 @@
+
+
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer’s Marketplace</title>
+    <style>
+     /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f4c2c2 0%, #e6a7b9 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 40px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .filter-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .filter-section select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-section select:focus {
+            background-color: #f1f1f1;
+        }
+
+        /* Product Cards */
+        .product-card {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .product-card .details {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .product-card .details span {
+            display: block;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .product-card .details a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card .details a:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .filter-section select {
+                width: 100%;
+            }
+
+            .product-card {
+                margin-bottom: 20px;
+            }
+        
+            </style>
+</head>
+<body>
+    <h1>Buyer’s Marketplace</h1>
+
+    <div class="container">
+        <!-- Product Filter Section -->
+        <div class="filter-section">
+            <label for="category-filter">Filter by Category</label>
+            <select id="category-filter" onchange="filterProducts()">
+                <option value="all">All</option>
+                <option value="furniture">Furniture</option>
+                <option value="electronics">Electronics</option>
+            </select>
+        </div>
+
+        <!-- Display Products -->
+        <div id="product-display-section">
+            <h2>Available Products</h2>
+            <div id="product-cards-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Function to display products on the Buyer’s page
+        function displayProducts() {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const container = document.getElementById('product-cards-container');
+            container.innerHTML = ''; // Clear current products
+
+            products.forEach((product) => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="Product Image">
+                    <div class="details">
+                        <span>Price: $${product.price}</span>
+                        <span>Category: ${product.category}</span>
+                        <a href="${product.image}" target="_blank">View Image</a>
+                    </div>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+
+        // Function to filter products based on the selected category
+        function filterProducts() {
+            const selectedCategory = document.getElementById('category-filter').value;
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const container = document.getElementById('product-cards-container');
+            container.innerHTML = ''; // Clear current products
+
+            const filteredProducts = products.filter(product => {
+                return selectedCategory === 'all' || product.category === selectedCategory;
+            });
+
+            filteredProducts.forEach((product) => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="Product Image">
+                    <div class="details">
+                        <span>Price: $${product.price}</span>
+                        <span>Category: ${product.category}</span>
+                        <a href="${product.image}" target="_blank">View Image</a>
+                    </div>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+
+        // Initial display of products when the page loads
+        window.onload = displayProducts;
+    </script>
+</body>
+</html>

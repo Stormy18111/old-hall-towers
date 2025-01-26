@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Marketplace</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f8b3d2 0%, #e9c3c9 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            font-size: 3rem;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .choice-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .choice-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .choice-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .choice-buttons button:active {
+            background-color: #3e8e41;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .choice-buttons button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Marketplace</h1>
+
+    <div class="container">
+        <p>Please choose an option to proceed:</p>
+
+        <!-- Choice Buttons: Buyer or Seller -->
+        <div class="choice-buttons">
+            <button onclick="redirectToPage('buyer')">I'm a Buyer</button>
+            <button onclick="askForPassword()">I'm a Seller</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to redirect user based on their choice (Buyer)
+        function redirectToPage(userType) {
+            if (userType === 'buyer') {
+                window.location.href = 'buyer.html';  // Redirect to the buyer's page
+            }
+        }
+
+        // Function to ask for a password when the user selects "Seller"
+        function askForPassword() {
+            const password = prompt("Please enter the password to access the Seller's page:");
+
+            // Check if the entered password is correct
+            if (password === 'Ian18111') {
+                window.location.href = 'seller.html';  // Redirect to the seller's page
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>
